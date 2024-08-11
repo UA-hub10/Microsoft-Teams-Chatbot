@@ -1,5 +1,6 @@
 import os
 import requests
+from monitoring import monitor
 from dotenv import load_dotenv 
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
@@ -15,6 +16,7 @@ class Tools:
         and other factors, providing passenger details, choosing any additional services or add-ons, and completing the payment. 
         """
         response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/create-pnr",verify=False)
+        monitor(query=input, api="/create-pnr")
         return response
     
     @staticmethod
@@ -25,6 +27,7 @@ class Tools:
         differences involved and whether the change can be done online or require customer service. 
         """
         response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/update-trip",verify=False)  
+        monitor(query=input, api="/update-trip")
         return response
 
     @staticmethod
@@ -34,7 +37,8 @@ class Tools:
         The queries focus on rescheduling flights, addressing how to change flight dates, fees involved and the process 
         of rescheduling online or last minute.
         """
-        response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/reschedule",verify=False)    
+        response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/reschedule",verify=False) 
+        monitor(query=input, api="/reschedule")
         return response
 
     @staticmethod
@@ -46,6 +50,7 @@ class Tools:
         the timeframe for cancelling a flight before departure. 
         """
         response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/cancellation",verify=False)
+        monitor(query=input, api="/cancellation")
         return response
     
     @staticmethod
@@ -55,7 +60,8 @@ class Tools:
          Any queries that are not related to booking flights, updating destination, rescheduling and cancelling the
          bookings.
         """
-        response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/irrelevant",verify=False)
+        # response =  requests.get("http://Teams-api-env.eba-np6m9sbm.us-east-1.elasticbeanstalk.com/irrelevant",verify=False)
+        monitor(query=input, api="no api calls")
         return response
 
 class Agents(Tools):

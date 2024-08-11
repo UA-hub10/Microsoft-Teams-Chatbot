@@ -1,2 +1,5 @@
-/.env
+.env
 /.venv
+links.txt
+/__pycache__
+Client secret.txt
